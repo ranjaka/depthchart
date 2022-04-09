@@ -11,9 +11,10 @@ public class PlayerDao {
 
   @Autowired PlayerRepository playerRepository;
 
-  public void savePlayer(Player player) {
+  public Player savePlayer(Player player) {
     Player pl = Player.builder().name(player.getName()).position(player.getPosition()).build();
-    playerRepository.saveAndFlush(pl);
+    var createdPlayerWithId = playerRepository.saveAndFlush(pl);
+    return createdPlayerWithId;
   }
 
   public Optional<Player> getPlayerById(Integer id) {

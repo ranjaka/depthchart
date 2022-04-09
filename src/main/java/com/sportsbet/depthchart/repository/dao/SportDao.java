@@ -11,9 +11,9 @@ public class SportDao {
 
   @Autowired SportRepository sportRepository;
 
-  public void saveSport(Sport sport) {
+  public Sport saveSport(Sport sport) {
     Sport sp = Sport.builder().name(sport.getName()).build();
-    sportRepository.saveAndFlush(sp);
+    return sportRepository.saveAndFlush(sp);
   }
 
   public Optional<Sport> getSportByName(String name) {

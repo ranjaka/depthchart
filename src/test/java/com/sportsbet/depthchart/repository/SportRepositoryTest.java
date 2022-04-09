@@ -9,6 +9,7 @@ import com.sportsbet.depthchart.repository.dao.PositionDao;
 import com.sportsbet.depthchart.repository.dao.SportDao;
 import java.io.IOException;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,6 +34,7 @@ class SportRepositoryTest {
   @Autowired PlayerRepository playerRepository;
 
   @Test
+  @DisplayName("when valid sport data generate sport data in db")
   void testSportData() throws IOException {
 
     var sport =

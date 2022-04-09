@@ -1,2 +1,4 @@
-com/sportsbet/depthchart/repository/dao/PlayerDaoTest.class
 com/sportsbet/depthchart/integration/ProcessSportData.class
+com/sportsbet/depthchart/service/DataManagementServiceTest.class
+com/sportsbet/depthchart/TestUtils.class
+com/sportsbet/depthchart/repository/SportRepositoryTest.class
