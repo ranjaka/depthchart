@@ -20,16 +20,16 @@ public class Application {
   }
 
   @Bean
-  public CommandLineRunner addDemoData(
+  public CommandLineRunner setDbModelData(
       SportDao sportDao, PositionDao positionDao, PlayerDao playerDao) {
     Sport nfl = Sport.builder().name("NFL").build();
 
     Position qb = Position.builder().name("QB").sport(nfl).build();
     Position wr = Position.builder().name("WR").sport(nfl).build();
 
-    Player bob = Player.builder().id(1).name("bob").position(wr).build();
-    Player alice = Player.builder().id(2).name("alice").position(wr).build();
-    Player charlie = Player.builder().id(3).name("chalie").position(wr).build();
+    Player bob = Player.builder().name("bob").position(wr).build();
+    Player alice = Player.builder().name("alice").position(wr).build();
+    Player charlie = Player.builder().name("charlie").position(wr).build();
 
     List<Sport> sports = List.of(nfl);
     List<Position> positions = List.of(qb, wr);

@@ -2,6 +2,7 @@ package com.sportsbet.depthchart.repository.dao;
 
 import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.repository.PositionRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +12,14 @@ public class PositionDao {
   @Autowired PositionRepository positionRepository;
 
   public void savePosition(Position position) {
-    positionRepository.saveAndFlush(position);
+
+    Position pos = Position.builder().name(position.getName()).sport(position.getSport()).build();
+
+    positionRepository.saveAndFlush(pos);
   }
 
-  public Position getPositionByName(String name) throws Exception {
+  public Optional<Position> getPositionByName(String name) {
 
-    var position = positionRepository.findByName(name);
-
-    if (position.isEmpty()) {
-      throw new Exception("Position not found for the given name");
-    } else return position.get();
+    return positionRepository.findByName(name);
   }
 }

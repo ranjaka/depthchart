@@ -1,8 +1,8 @@
 package com.sportsbet.depthchart.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,5 +28,5 @@ public class Sport {
 
   @OneToMany(targetEntity = Position.class, mappedBy = "sport", fetch = FetchType.EAGER)
   @JsonManagedReference
-  private Set<Position> positions = new HashSet<>();
+  private List<Position> positions = new ArrayList<>();
 }
