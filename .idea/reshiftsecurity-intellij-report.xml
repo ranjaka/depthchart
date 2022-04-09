@@ -4,6 +4,10 @@
     <isGitProject>true</isGitProject>
     <gitBranch>main</gitBranch>
     <projectName>depthchart</projectName>
-    <securityIssues />
+    <totalVulnerabilityCount>1</totalVulnerabilityCount>
+    <newVulnerabilityCount>1</newVulnerabilityCount>
+    <securityIssues>
+      <securityIssue issueHash="68082490962ABF6BBA60949A6B465FF9187CD8AD4767F97569069DB665D0F19B" cweId="22" categoryName="PATH_TRAVERSAL_IN" classFQN="com.sportsbet.depthchart.TestUtils" lineNumber="13" code="Filefile=newFile(filePath);" methodFullSignature="com.sportsbet.depthchart.TestUtils.loadFromFile(String, Class)" detectionDatetime="2022-04-09T22:34:07.419266" />
+    </securityIssues>
   </component>
 </project>

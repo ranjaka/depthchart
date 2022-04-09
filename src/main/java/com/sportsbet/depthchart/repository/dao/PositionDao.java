@@ -13,7 +13,12 @@ public class PositionDao {
 
   public void savePosition(Position position) {
 
-    Position pos = Position.builder().name(position.getName()).sport(position.getSport()).build();
+    Position pos =
+        Position.builder()
+            .name(position.getName())
+            .sport(position.getSport())
+            .players(position.getPlayers())
+            .build();
 
     positionRepository.saveAndFlush(pos);
   }

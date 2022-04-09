@@ -1,5 +1,6 @@
 package com.sportsbet.depthchart.service;
 
+import com.sportsbet.depthchart.exceptions.ApplicationException;
 import com.sportsbet.depthchart.exceptions.BadRequestException;
 import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
@@ -7,9 +8,9 @@ import com.sportsbet.depthchart.repository.dao.PlayerDao;
 import com.sportsbet.depthchart.repository.dao.PositionDao;
 import com.sportsbet.depthchart.repository.dao.SportDao;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
-import com.sportsbet.depthchart.repository.dto.PlayerDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
 import com.sportsbet.depthchart.repository.mapper.EntityDTOMapper;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,10 +45,11 @@ public class DataManagementService {
     }
   }
 
-  public PlayerDTO createPlayer(CreatePlayerDTO createPlayerDTO) {
+  public Position addPlayerToDepthChart(CreatePlayerDTO createPlayerDTO) {
+
+    var playerToCreate = entityDTOMapper.createPlayerToEntity(createPlayerDTO);
 
     var existingPosition = positionDao.getPositionByName(createPlayerDTO.getPosition());
-    var playerToCreate = entityDTOMapper.createPlayerToEntity(createPlayerDTO);
 
     if (existingPosition.isEmpty()) {
       // position is not created in db so cannot create player profile
@@ -58,10 +60,18 @@ public class DataManagementService {
     }
 
     // create player
+    existingPosition.get().setPlayers(new ArrayList<>());
+    positionDao.savePosition(existingPosition.get());
+
     playerToCreate.setPosition(existingPosition.get());
+    var createdPlayer = playerDao.savePlayer(playerToCreate);
 
-    var playerData = playerDao.savePlayer(playerToCreate);
+    var depthChart = positionDao.getPositionByName(createPlayerDTO.getPosition());
 
-    return entityDTOMapper.playerToDTO(playerData);
+    if (depthChart.isEmpty()) {
+      throw new ApplicationException("issue");
+    }
+
+    return depthChart.get();
   }
 }

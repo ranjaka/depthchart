@@ -43,7 +43,7 @@ public class Application {
 
     return args -> {
       listOfSports.forEach(dataManagementService::createSport);
-      listOfPlayers.forEach(dataManagementService::createPlayer);
+      listOfPlayers.forEach(dataManagementService::addPlayerToDepthChart);
     };
   }
 }

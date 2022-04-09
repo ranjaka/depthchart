@@ -21,4 +21,6 @@ public class CreatePlayerDTO {
   @NotNull private String name;
 
   @NotNull private String position;
+
+  Integer positionDepth;
 }
