@@ -1,11 +1,8 @@
 package com.sportsbet.depthchart;
 
-import com.sportsbet.depthchart.model.Player;
-import com.sportsbet.depthchart.model.Position;
-import com.sportsbet.depthchart.model.Sport;
-import com.sportsbet.depthchart.repository.dao.PlayerDao;
-import com.sportsbet.depthchart.repository.dao.PositionDao;
-import com.sportsbet.depthchart.repository.dao.SportDao;
+import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
+import com.sportsbet.depthchart.repository.dto.SportDTO;
+import com.sportsbet.depthchart.service.DataManagementService;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,25 +17,33 @@ public class Application {
   }
 
   @Bean
-  public CommandLineRunner setDbModelData(
-      SportDao sportDao, PositionDao positionDao, PlayerDao playerDao) {
-    Sport nfl = Sport.builder().name("NFL").build();
+  public CommandLineRunner setDbModelData(DataManagementService dataManagementService) {
 
-    Position qb = Position.builder().name("QB").sport(nfl).build();
-    Position wr = Position.builder().name("WR").sport(nfl).build();
+    // --- create sports to add to db at runtime ---
+    SportDTO nfl =
+        SportDTO.builder()
+            .name("NFL")
+            .positions(List.of("QB", "WR", "RB", "TE", "K", "P", "KR", "PR"))
+            .build();
 
-    Player bob = Player.builder().name("bob").position(wr).build();
-    Player alice = Player.builder().name("alice").position(wr).build();
-    Player charlie = Player.builder().name("charlie").position(wr).build();
+    SportDTO mlb =
+        SportDTO.builder()
+            .name("MLB")
+            .positions(List.of("SP", "RP", "C", "1B", "2B", "3B", "SS", "LF", "RF", "CF", "DH"))
+            .build();
 
-    List<Sport> sports = List.of(nfl);
-    List<Position> positions = List.of(qb, wr);
-    List<Player> players = List.of(bob, alice, charlie);
+    List<SportDTO> listOfSports = List.of(nfl, mlb);
+
+    // --- create players to add to db at runtime ---
+    CreatePlayerDTO bob = CreatePlayerDTO.builder().name("Bob").position("WR").build();
+    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").build();
+    CreatePlayerDTO charlie = CreatePlayerDTO.builder().name("Charlie").position("WR").build();
+
+    List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie);
 
     return args -> {
-      sports.forEach(sp -> sportDao.saveSport(nfl));
-      positions.forEach(positionDao::savePosition);
-      players.forEach(playerDao::savePlayer);
+      listOfSports.forEach(dataManagementService::createSport);
+      listOfPlayers.forEach(dataManagementService::createPlayer);
     };
   }
 }

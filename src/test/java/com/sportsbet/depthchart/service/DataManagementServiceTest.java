@@ -1,7 +1,6 @@
 package com.sportsbet.depthchart.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sportsbet.depthchart.exceptions.BadRequestException;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
@@ -24,8 +23,6 @@ class DataManagementServiceTest {
   @Autowired DataManagementService dataManagementService;
 
   @MockBean CommandLineRunner commandLineRunner;
-
-  ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
   @Order(1)
@@ -62,12 +59,14 @@ class DataManagementServiceTest {
   @Test
   @Order(3)
   @DisplayName("given sport created when new player data create new player")
-  void createPlayer() throws JsonProcessingException {
+  void createPlayer_1() {
 
     CreatePlayerDTO createPlayerDTO = CreatePlayerDTO.builder().name("bob").position("WR").build();
 
     var playerProfile = dataManagementService.createPlayer(createPlayerDTO);
 
-    System.out.println("player: " + objectMapper.writeValueAsString(playerProfile));
+    Assertions.assertThat(playerProfile.getName()).isEqualTo(createPlayerDTO.getName());
+    Assertions.assertThat(playerProfile.getPosition()).isEqualTo(createPlayerDTO.getPosition());
+    Assertions.assertThat(playerProfile.getId()).isNotZero();
   }
 }
