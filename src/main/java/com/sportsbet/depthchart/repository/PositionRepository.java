@@ -12,4 +12,6 @@ public interface PositionRepository extends JpaRepository<Position, String> {
   Optional<Position> findByName(String name);
 
   List<Position> findBySport(String sport);
+
+  void deleteByName(String name);
 }

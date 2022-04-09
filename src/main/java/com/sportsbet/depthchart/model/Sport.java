@@ -13,6 +13,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -28,5 +30,6 @@ public class Sport {
 
   @OneToMany(targetEntity = Position.class, mappedBy = "sport", fetch = FetchType.EAGER)
   @JsonManagedReference
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Position> positions = new ArrayList<>();
 }

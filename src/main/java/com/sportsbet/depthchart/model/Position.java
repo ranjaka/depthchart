@@ -17,6 +17,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -37,5 +39,6 @@ public class Position {
 
   @OneToMany(targetEntity = Player.class, mappedBy = "position", fetch = FetchType.EAGER)
   @JsonManagedReference
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Player> players = new ArrayList<>();
 }

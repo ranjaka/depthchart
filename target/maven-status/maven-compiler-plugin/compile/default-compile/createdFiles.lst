@@ -11,6 +11,7 @@ com/sportsbet/depthchart/exceptions/BadRequestException.class
 com/sportsbet/depthchart/repository/PositionRepository.class
 com/sportsbet/depthchart/model/Sport.class
 com/sportsbet/depthchart/repository/dao/SportDao.class
+com/sportsbet/depthchart/AppConfig.class
 com/sportsbet/depthchart/Application.class
 com/sportsbet/depthchart/repository/dto/SportDTO.class
 com/sportsbet/depthchart/repository/dto/SportDTO$SportDTOBuilder.class

@@ -26,6 +26,8 @@ public class DataManagementService {
 
   @Autowired EntityDTOMapper entityDTOMapper;
 
+  private List<Position> depthChart = new ArrayList<>();
+
   public void createSport(SportDTO sportDTO) {
 
     // check whether the sport already exists in db
@@ -49,6 +51,8 @@ public class DataManagementService {
 
     var playerToCreate = entityDTOMapper.createPlayerToEntity(createPlayerDTO);
 
+    var positionDepth = createPlayerDTO.getPositionDepth();
+
     var existingPosition = positionDao.getPositionByName(createPlayerDTO.getPosition());
 
     if (existingPosition.isEmpty()) {
@@ -58,11 +62,6 @@ public class DataManagementService {
               "Position [%s] does not exist. Unable to create player profile",
               createPlayerDTO.getName()));
     }
-
-    // create player
-    existingPosition.get().setPlayers(new ArrayList<>());
-    positionDao.savePosition(existingPosition.get());
-
     playerToCreate.setPosition(existingPosition.get());
     var createdPlayer = playerDao.savePlayer(playerToCreate);
 

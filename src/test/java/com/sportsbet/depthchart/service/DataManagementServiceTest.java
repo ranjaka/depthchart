@@ -70,7 +70,7 @@ class DataManagementServiceTest {
         CreatePlayerDTO.builder().name("alice").position("WR").positionDepth(0).build();
 
     var position = dataManagementService.addPlayerToDepthChart(bob);
-    position = dataManagementService.addPlayerToDepthChart(alice);
+    //    position = dataManagementService.addPlayerToDepthChart(alice);
 
     System.out.println("position: " + new ObjectMapper().writeValueAsString(position));
 
