@@ -2,7 +2,7 @@ package com.sportsbet.depthchart.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Embeddable
+@Entity
 public class Player {
 
   @Id
