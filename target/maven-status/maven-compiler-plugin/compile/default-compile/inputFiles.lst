@@ -16,6 +16,7 @@
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/dto/CreatePlayerDTO.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/PositionRepository.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/PlayerRepository.java
+/Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/dto/DeletePlayerDTO.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/service/DataManagementService.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/exceptions/ApplicationException.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/model/Player.java

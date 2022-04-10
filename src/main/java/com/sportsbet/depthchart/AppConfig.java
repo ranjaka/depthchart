@@ -31,9 +31,9 @@ public class AppConfig {
 
     // --- create players to add to db at runtime ---
     CreatePlayerDTO bob = CreatePlayerDTO.builder().name("Bob").position("WR").depth(0).build();
-    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").depth(1).build();
+    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").build();
     CreatePlayerDTO charlie =
-        CreatePlayerDTO.builder().name("Charlie").position("WR").depth(2).build();
+        CreatePlayerDTO.builder().name("Charlie").position("WR").depth(1).build();
 
     List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie);
 

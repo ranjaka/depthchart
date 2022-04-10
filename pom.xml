@@ -19,6 +19,7 @@
         <com.diffplug.spotless>2.21.0</com.diffplug.spotless>
         <org.mapstruct>1.4.2.Final</org.mapstruct>
         <org.apache.maven.plugins>3.8.1</org.apache.maven.plugins>
+        <maven-surefire-plugin>3.0.0-M5</maven-surefire-plugin>
 
     </properties>
 
@@ -137,6 +138,13 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+
+            <!--            Tests Coverage: Maven surefire test coverage   -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin}</version>
             </plugin>
 
 

@@ -4,6 +4,7 @@ import com.sportsbet.depthchart.model.Player;
 import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
+import com.sportsbet.depthchart.repository.dto.DeletePlayerDTO;
 import com.sportsbet.depthchart.repository.dto.PlayerDTO;
 import com.sportsbet.depthchart.repository.dto.PositionDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
@@ -17,7 +18,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "Spring", builder = @Builder(disableBuilder = true))
 public abstract class EntityDTOMapper {
-  // Player
+  // --- Player ---
   @Mapping(target = "position", ignore = true)
   public abstract PlayerDTO playerToDTO(Player player);
 
@@ -28,11 +29,26 @@ public abstract class EntityDTOMapper {
   @Mapping(target = "position", ignore = true)
   public abstract Player createPlayerToEntity(CreatePlayerDTO createPlayerDTO);
 
-  @Mapping(target = "positions", ignore = true)
-  public abstract Sport sportDTOToEntity(SportDTO sportDTO);
+  @Mapping(target = "position", ignore = true)
+  public abstract Player deletePlayerDTOToEntity(DeletePlayerDTO deletePlayerDTO);
 
-  @Mapping(target = "positions", ignore = true)
-  public abstract SportDTO sportToDTO(Sport sport);
+  @AfterMapping
+  public void playerToDTOAfterMapping(Player source, @MappingTarget PlayerDTO target) {
+    target.setPosition(source.getPosition().getName());
+  }
+
+  @AfterMapping
+  public void createPlayerDTOToEntity(CreatePlayerDTO source, @MappingTarget Player target) {
+    Position position = Position.builder().name(source.getPosition()).build();
+    target.setPosition(position);
+  }
+
+  @AfterMapping
+  public void deletePlayerDTOToEntityAfterMapping(
+      DeletePlayerDTO source, @MappingTarget Player target) {
+    Position position = Position.builder().name(source.getPosition()).build();
+    target.setPosition(position);
+  }
 
   // position
 
@@ -41,7 +57,6 @@ public abstract class EntityDTOMapper {
 
   @AfterMapping
   public void positionToDTOAfterMapping(Position source, @MappingTarget PositionDTO target) {
-
     List<Player> players = source.getPlayers();
     List<Integer> playerIds = new ArrayList<>();
     for (Player player : players) {
@@ -50,10 +65,12 @@ public abstract class EntityDTOMapper {
     target.setPlayerIds(playerIds);
   }
 
-  @AfterMapping
-  public void playerToDTOAfterMapping(Player source, @MappingTarget PlayerDTO target) {
-    target.setPosition(source.getPosition().getName());
-  }
+  // --- Sport ---
+  @Mapping(target = "positions", ignore = true)
+  public abstract Sport sportDTOToEntity(SportDTO sportDTO);
+
+  @Mapping(target = "positions", ignore = true)
+  public abstract SportDTO sportToDTO(Sport sport);
 
   @AfterMapping
   public void sportToDTOAfterMapping(Sport source, @MappingTarget SportDTO target) {

@@ -26,7 +26,7 @@ public class SportDao {
       sport.getPositions().add(positionRepository.saveAndFlush(position));
     }
 
-    return sport;
+    return sportWithId;
   }
 
   public Sport getSportById(Integer id) {

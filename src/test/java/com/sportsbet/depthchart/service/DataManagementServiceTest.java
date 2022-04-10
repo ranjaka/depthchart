@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 
+@DirtiesContext
 @SpringBootTest(value = "spring.main.lazy-initialization=true")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -63,9 +65,14 @@ class DataManagementServiceTest {
   @DisplayName("given sport created when new player data create new player")
   void createPlayer_1() throws JsonProcessingException {
     CreatePlayerDTO bob = CreatePlayerDTO.builder().name("bob").position("WR").depth(0).build();
-    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("alice").position("WR").depth(0).build();
+    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("alice").position("WR").build();
+    CreatePlayerDTO charlie =
+        CreatePlayerDTO.builder().name("charlie").position("WR").depth(1).build();
 
     var out1 = dataManagementService.addPlayerToDepthChart(bob);
     var out2 = dataManagementService.addPlayerToDepthChart(alice);
+    var out3 = dataManagementService.addPlayerToDepthChart(alice);
+
+    System.out.println("out3: " + out3);
   }
 }

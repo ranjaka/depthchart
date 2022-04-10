@@ -4,9 +4,10 @@ import com.sportsbet.depthchart.exceptions.BadRequestException;
 import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
 import com.sportsbet.depthchart.repository.dao.PlayerDao;
+import com.sportsbet.depthchart.repository.dao.PositionDao;
 import com.sportsbet.depthchart.repository.dao.SportDao;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
-import com.sportsbet.depthchart.repository.dto.PositionDTO;
+import com.sportsbet.depthchart.repository.dto.PlayerDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
 import com.sportsbet.depthchart.repository.mapper.EntityDTOMapper;
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class DataManagementService {
 
   @Autowired PlayerDao playerDao;
 
-  @Autowired EntityDTOMapper entityDTOMapper;
+  @Autowired PositionDao positionDao;
 
-  private List<Position> depthChart = new ArrayList<>();
+  @Autowired EntityDTOMapper entityDTOMapper;
 
   public SportDTO createSport(SportDTO sportDTO) {
     // check whether the sport already exists in db
@@ -44,11 +45,20 @@ public class DataManagementService {
     return entityDTOMapper.sportToDTO(sport);
   }
 
-  public PositionDTO addPlayerToDepthChart(CreatePlayerDTO createPlayerDTO) {
+  public PlayerDTO addPlayerToDepthChart(CreatePlayerDTO createPlayerDTO) {
 
     var playerToCreate = entityDTOMapper.createPlayerToEntity(createPlayerDTO);
+    var positionName = createPlayerDTO.getPosition();
 
-    var positionData = playerDao.savePlayer(playerToCreate, createPlayerDTO.getPosition());
-    return entityDTOMapper.positionToDTO(positionData);
+    var position = positionDao.getPositionByName(positionName);
+    playerToCreate.setPosition(position.get());
+
+    var playerId = playerDao.savePlayer(playerToCreate);
+
+    var player = playerDao.getPlayerById(playerId);
+
+    return entityDTOMapper.playerToDTO(player.get());
   }
+
+  public void removePlayerFromDepthChart(CreatePlayerDTO createPlayerDTO) {}
 }
