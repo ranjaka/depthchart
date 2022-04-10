@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-10T19:26:38+1000",
+    date = "2022-04-10T21:04:51+1000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 13.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,22 +30,7 @@ public class EntityDTOMapperImpl extends EntityDTOMapper {
         playerDTO.setId( player.getId() );
         playerDTO.setName( player.getName() );
 
-        playerToDTOAfterMapping( player, playerDTO );
-
         return playerDTO;
-    }
-
-    @Override
-    public Player playerToEntity(PlayerDTO playerDTO) {
-        if ( playerDTO == null ) {
-            return null;
-        }
-
-        Player player = new Player();
-
-        player.setName( playerDTO.getName() );
-
-        return player;
     }
 
     @Override
@@ -59,8 +44,6 @@ public class EntityDTOMapperImpl extends EntityDTOMapper {
         player.setName( createPlayerDTO.getName() );
         player.setDepth( createPlayerDTO.getDepth() );
 
-        createPlayerDTOToEntity( createPlayerDTO, player );
-
         return player;
     }
 
@@ -73,8 +56,6 @@ public class EntityDTOMapperImpl extends EntityDTOMapper {
         Player player = new Player();
 
         player.setName( deletePlayerDTO.getName() );
-
-        deletePlayerDTOToEntityAfterMapping( deletePlayerDTO, player );
 
         return player;
     }

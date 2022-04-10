@@ -1,6 +1,7 @@
 package com.sportsbet.depthchart.service;
 
 import com.sportsbet.depthchart.exceptions.BadRequestException;
+import com.sportsbet.depthchart.model.Player;
 import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
 import com.sportsbet.depthchart.repository.dao.PlayerDao;
@@ -45,19 +46,19 @@ public class DataManagementService {
     return entityDTOMapper.sportToDTO(sport);
   }
 
-  public PlayerDTO addPlayerToDepthChart(CreatePlayerDTO createPlayerDTO) {
+  public PlayerDTO addPlayerToDepthChart(
+      String playerName, String playerPosition, Integer positionDepth) {
 
-    var playerToCreate = entityDTOMapper.createPlayerToEntity(createPlayerDTO);
-    var positionName = createPlayerDTO.getPosition();
+    var position = positionDao.getPositionByName(playerPosition);
+    var player = Player.builder().name(playerName).depth(positionDepth).build();
 
-    var position = positionDao.getPositionByName(positionName);
-    playerToCreate.setPosition(position.get());
+    var playerId = playerDao.savePlayer(player, position.get());
 
-    var playerId = playerDao.savePlayer(playerToCreate);
+    var playerData = playerDao.getPlayerById(playerId);
 
-    var player = playerDao.getPlayerById(playerId);
-
-    return entityDTOMapper.playerToDTO(player.get());
+    var playerDTO = entityDTOMapper.playerToDTO(playerData.get());
+    playerDTO.setPosition(playerPosition);
+    return playerDTO;
   }
 
   public void removePlayerFromDepthChart(CreatePlayerDTO createPlayerDTO) {}

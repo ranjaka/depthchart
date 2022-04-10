@@ -1,15 +1,13 @@
 package com.sportsbet.depthchart.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Embeddable
+@AllArgsConstructor
+@Builder
 @Entity
 public class Player {
 
@@ -28,10 +27,10 @@ public class Player {
 
   @NotNull private String name;
 
-  @ManyToOne
-  @JoinColumn(name = "position_name")
-  @JsonBackReference
-  private Position position;
+  //  @ManyToOne
+  //  @JoinColumn(name = "position_name")
+  //  @JsonBackReference
+  //  private Position position;
 
   private Integer depth;
 }

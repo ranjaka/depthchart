@@ -39,7 +39,13 @@ public class AppConfig {
 
     return args -> {
       listOfSports.forEach(dataManagementService::createSport);
-      listOfPlayers.forEach(dataManagementService::addPlayerToDepthChart);
+      listOfPlayers.forEach(
+          createPlayerDTO -> {
+            dataManagementService.addPlayerToDepthChart(
+                createPlayerDTO.getName(),
+                createPlayerDTO.getPosition(),
+                createPlayerDTO.getDepth());
+          });
     };
   }
 }

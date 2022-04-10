@@ -69,9 +69,15 @@ class DataManagementServiceTest {
     CreatePlayerDTO charlie =
         CreatePlayerDTO.builder().name("charlie").position("WR").depth(1).build();
 
-    var out1 = dataManagementService.addPlayerToDepthChart(bob);
-    var out2 = dataManagementService.addPlayerToDepthChart(alice);
-    var out3 = dataManagementService.addPlayerToDepthChart(alice);
+    var out1 =
+        dataManagementService.addPlayerToDepthChart(
+            bob.getName(), bob.getPosition(), bob.getDepth());
+    var out2 =
+        dataManagementService.addPlayerToDepthChart(
+            alice.getName(), alice.getPosition(), alice.getDepth());
+    var out3 =
+        dataManagementService.addPlayerToDepthChart(
+            charlie.getName(), charlie.getPosition(), charlie.getDepth());
 
     System.out.println("out3: " + out3);
   }

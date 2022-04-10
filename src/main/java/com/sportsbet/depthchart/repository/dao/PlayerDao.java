@@ -1,6 +1,7 @@
 package com.sportsbet.depthchart.repository.dao;
 
 import com.sportsbet.depthchart.model.Player;
+import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.repository.PlayerRepository;
 import com.sportsbet.depthchart.repository.PositionRepository;
 import com.sportsbet.depthchart.repository.SportRepository;
@@ -16,12 +17,12 @@ public class PlayerDao {
 
   @Autowired SportRepository sportRepository;
 
-  public Integer savePlayer(Player player) {
+  public Integer savePlayer(Player player, Position position) {
 
     var playerWithId = playerRepository.saveAndFlush(player);
 
     //    var position = positionRepository.findByName(positionName);
-    var position = player.getPosition();
+    //    var position = player.getPosition();
     var currentPlayers = position.getPlayers();
     var currentPlayerCount = currentPlayers.size();
     var depth = player.getDepth();
@@ -58,8 +59,8 @@ public class PlayerDao {
         newPos.getPlayers().add(pl.getDepth(), pl);
       }
 
-      pl.setPosition(newPos);
-      position = pl.getPosition();
+      //      pl.setPosition(newPos);
+      //      position = pl.getPosition();
       playerRepository.saveAndFlush(pl);
     }
 
