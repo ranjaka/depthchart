@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -25,7 +27,10 @@ import org.hibernate.annotations.OnDeleteAction;
 public class Sport {
 
   @Id
-  @Column(name = "sport_name", unique = true)
+  @Column(name = "id", unique = true, nullable = false)
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
+
   private String name;
 
   @OneToMany(targetEntity = Position.class, mappedBy = "sport", fetch = FetchType.EAGER)

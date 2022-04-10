@@ -1,16 +1,18 @@
 package com.sportsbet.depthchart.repository.mapper;
 
 import com.sportsbet.depthchart.model.Player;
+import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
 import com.sportsbet.depthchart.repository.dto.PlayerDTO;
+import com.sportsbet.depthchart.repository.dto.PositionDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-10T01:34:44+1000",
+    date = "2022-04-10T16:25:34+1000",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 13.0.2 (Oracle Corporation)"
 )
 @Component
@@ -54,12 +56,13 @@ public class EntityDTOMapperImpl extends EntityDTOMapper {
         Player player = new Player();
 
         player.setName( createPlayerDTO.getName() );
+        player.setDepth( createPlayerDTO.getDepth() );
 
         return player;
     }
 
     @Override
-    public Sport sportToEntity(SportDTO sportDTO) {
+    public Sport sportDTOToEntity(SportDTO sportDTO) {
         if ( sportDTO == null ) {
             return null;
         }
@@ -84,5 +87,20 @@ public class EntityDTOMapperImpl extends EntityDTOMapper {
         sportToDTOAfterMapping( sport, sportDTO );
 
         return sportDTO;
+    }
+
+    @Override
+    public PositionDTO positionToDTO(Position position) {
+        if ( position == null ) {
+            return null;
+        }
+
+        PositionDTO positionDTO = new PositionDTO();
+
+        positionDTO.setName( position.getName() );
+
+        positionToDTOAfterMapping( position, positionDTO );
+
+        return positionDTO;
     }
 }

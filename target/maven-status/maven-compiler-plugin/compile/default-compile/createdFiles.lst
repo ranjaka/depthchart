@@ -1,15 +1,14 @@
 com/sportsbet/depthchart/repository/dao/PlayerDao.class
 com/sportsbet/depthchart/exceptions/ResourceNotFoundException.class
 com/sportsbet/depthchart/repository/dto/PlayerDTO.class
-com/sportsbet/depthchart/model/Player$PlayerBuilder.class
 com/sportsbet/depthchart/model/Position$PositionBuilder.class
 com/sportsbet/depthchart/repository/dto/CreatePlayerDTO$CreatePlayerDTOBuilder.class
 com/sportsbet/depthchart/model/DepthChart.class
-com/sportsbet/depthchart/repository/dao/PositionDao.class
 com/sportsbet/depthchart/repository/dto/CreatePlayerDTO.class
 com/sportsbet/depthchart/exceptions/BadRequestException.class
 com/sportsbet/depthchart/repository/PositionRepository.class
 com/sportsbet/depthchart/model/Sport.class
+com/sportsbet/depthchart/repository/dto/PositionDTO.class
 com/sportsbet/depthchart/repository/dao/SportDao.class
 com/sportsbet/depthchart/AppConfig.class
 com/sportsbet/depthchart/Application.class
@@ -18,6 +17,7 @@ com/sportsbet/depthchart/repository/dto/SportDTO$SportDTOBuilder.class
 com/sportsbet/depthchart/repository/dto/PlayerDTO$PlayerDTOBuilder.class
 com/sportsbet/depthchart/model/Position.class
 com/sportsbet/depthchart/repository/mapper/EntityDTOMapper.class
+com/sportsbet/depthchart/repository/dto/PositionDTO$PositionDTOBuilder.class
 com/sportsbet/depthchart/repository/PlayerRepository.class
 com/sportsbet/depthchart/repository/mapper/EntityDTOMapperImpl.class
 com/sportsbet/depthchart/model/Player.class

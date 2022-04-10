@@ -1,9 +1,11 @@
 package com.sportsbet.depthchart.repository.mapper;
 
 import com.sportsbet.depthchart.model.Player;
+import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
 import com.sportsbet.depthchart.repository.dto.PlayerDTO;
+import com.sportsbet.depthchart.repository.dto.PositionDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +29,26 @@ public abstract class EntityDTOMapper {
   public abstract Player createPlayerToEntity(CreatePlayerDTO createPlayerDTO);
 
   @Mapping(target = "positions", ignore = true)
-  public abstract Sport sportToEntity(SportDTO sportDTO);
+  public abstract Sport sportDTOToEntity(SportDTO sportDTO);
 
   @Mapping(target = "positions", ignore = true)
   public abstract SportDTO sportToDTO(Sport sport);
+
+  // position
+
+  @Mapping(target = "playerIds", ignore = true)
+  public abstract PositionDTO positionToDTO(Position position);
+
+  @AfterMapping
+  public void positionToDTOAfterMapping(Position source, @MappingTarget PositionDTO target) {
+
+    List<Player> players = source.getPlayers();
+    List<Integer> playerIds = new ArrayList<>();
+    for (Player player : players) {
+      playerIds.add(player.getId());
+    }
+    target.setPlayerIds(playerIds);
+  }
 
   @AfterMapping
   public void playerToDTOAfterMapping(Player source, @MappingTarget PlayerDTO target) {

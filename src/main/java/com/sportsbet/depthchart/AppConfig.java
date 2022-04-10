@@ -30,9 +30,10 @@ public class AppConfig {
     List<SportDTO> listOfSports = List.of(nfl, mlb);
 
     // --- create players to add to db at runtime ---
-    CreatePlayerDTO bob = CreatePlayerDTO.builder().name("Bob").position("WR").build();
-    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").build();
-    CreatePlayerDTO charlie = CreatePlayerDTO.builder().name("Charlie").position("WR").build();
+    CreatePlayerDTO bob = CreatePlayerDTO.builder().name("Bob").position("WR").depth(0).build();
+    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").depth(1).build();
+    CreatePlayerDTO charlie =
+        CreatePlayerDTO.builder().name("Charlie").position("WR").depth(2).build();
 
     List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie);
 

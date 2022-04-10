@@ -5,7 +5,6 @@ import com.sportsbet.depthchart.model.Player;
 import com.sportsbet.depthchart.model.Position;
 import com.sportsbet.depthchart.model.Sport;
 import com.sportsbet.depthchart.repository.dao.PlayerDao;
-import com.sportsbet.depthchart.repository.dao.PositionDao;
 import com.sportsbet.depthchart.repository.dao.SportDao;
 import java.io.IOException;
 import java.util.List;
@@ -22,8 +21,6 @@ class SportRepositoryTest {
   @Autowired PlayerDao playerDao;
 
   @Autowired SportDao sportDao;
-
-  @Autowired PositionDao positionDao;
 
   @MockBean CommandLineRunner commandLineRunner;
 
@@ -49,13 +46,13 @@ class SportRepositoryTest {
     List<Position> positions = sportData.getPositions();
     positions.forEach(
         position -> {
-          positionDao.savePosition(position);
+          positionRepository.saveAndFlush(position);
         });
 
     positions.forEach(
         position -> {
           List<Player> players = position.getPlayers();
-          players.forEach(player -> playerDao.savePlayer(player));
+          players.forEach(player -> playerDao.savePlayer(player, position.getName()));
         });
   }
 }

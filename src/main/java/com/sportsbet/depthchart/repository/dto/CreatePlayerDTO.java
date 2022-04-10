@@ -22,5 +22,5 @@ public class CreatePlayerDTO {
 
   @NotNull private String position;
 
-  Integer positionDepth;
+  private Integer depth;
 }

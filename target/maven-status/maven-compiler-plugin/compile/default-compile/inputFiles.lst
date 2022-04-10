@@ -1,6 +1,7 @@
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/model/DepthChart.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/model/Sport.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/AppConfig.java
+/Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/dto/PositionDTO.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/dao/SportDao.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/exceptions/BadRequestException.java
 /Users/ranjakademel/Documents/Personal/tutorials/depthchart/src/main/java/com/sportsbet/depthchart/repository/dao/PlayerDao.java

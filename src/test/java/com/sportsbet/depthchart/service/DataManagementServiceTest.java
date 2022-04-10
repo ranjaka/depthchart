@@ -1,7 +1,6 @@
 package com.sportsbet.depthchart.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sportsbet.depthchart.exceptions.BadRequestException;
 import com.sportsbet.depthchart.repository.dto.CreatePlayerDTO;
 import com.sportsbet.depthchart.repository.dto.SportDTO;
@@ -11,16 +10,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.DirtiesContext;
 
-@DirtiesContext
 @SpringBootTest(value = "spring.main.lazy-initialization=true")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DataManagementServiceTest {
 
   @Autowired DataManagementService dataManagementService;
@@ -46,9 +45,9 @@ class DataManagementServiceTest {
 
   @Test
   @Order(2)
-  @DisplayName("when duplicate sport then throw BadRequestException")
+  @DisplayName("when creating duplicate sport throw bad request exception")
   void createSport_2() {
-    List<String> nflSupportedPositions = List.of("QB", "WR", "RB", "TE", "K", "P", "KR", "PR");
+    List<String> nflSupportedPositions = List.of("QB", "WR", "RB", "TE", "K", "P", "KR", "GG");
     SportDTO sportDTO = SportDTO.builder().name("NFL").positions(nflSupportedPositions).build();
 
     Assertions.assertThatThrownBy(
@@ -63,20 +62,10 @@ class DataManagementServiceTest {
   @Order(3)
   @DisplayName("given sport created when new player data create new player")
   void createPlayer_1() throws JsonProcessingException {
+    CreatePlayerDTO bob = CreatePlayerDTO.builder().name("bob").position("WR").depth(0).build();
+    CreatePlayerDTO alice = CreatePlayerDTO.builder().name("alice").position("WR").depth(0).build();
 
-    CreatePlayerDTO bob =
-        CreatePlayerDTO.builder().name("bob").position("WR").positionDepth(0).build();
-    CreatePlayerDTO alice =
-        CreatePlayerDTO.builder().name("alice").position("WR").positionDepth(0).build();
-
-    var position = dataManagementService.addPlayerToDepthChart(bob);
-    //    position = dataManagementService.addPlayerToDepthChart(alice);
-
-    System.out.println("position: " + new ObjectMapper().writeValueAsString(position));
-
-    //    Assertions.assertThat(playerProfile.getName()).isEqualTo(createPlayerDTO.getName());
-    //
-    // Assertions.assertThat(playerProfile.getPosition()).isEqualTo(createPlayerDTO.getPosition());
-    //    Assertions.assertThat(playerProfile.getId()).isNotZero();
+    var out1 = dataManagementService.addPlayerToDepthChart(bob);
+    var out2 = dataManagementService.addPlayerToDepthChart(alice);
   }
 }
