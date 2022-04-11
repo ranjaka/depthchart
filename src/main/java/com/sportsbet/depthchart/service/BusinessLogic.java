@@ -67,6 +67,8 @@ public class BusinessLogic {
   public PositionDTO addPlayerToDepthChart(
       String playerName, String playerPosition, Integer positionDepth) {
 
+    String playerFlag = "standard";
+
     var playerBuilder = Player.builder().name(playerName);
     if (positionDepth != null) {
       playerBuilder.depth(positionDepth);
@@ -79,6 +81,23 @@ public class BusinessLogic {
       throw new ResourceNotFoundException("Position data not found");
     }
 
+    // check duplicates
+    var extPlayer = playerDao.getPlayerByName(playerName);
+    for (Player pl : extPlayer) {
+
+      for (Player posPl : position.get().getPlayers()) {
+        if (posPl.getName().equals(pl.getName())) {
+          if (posPl.getDepth().equals(positionDepth)) {
+            throw new BadRequestException("duplicate");
+          } else {
+            player.setId(pl.getId());
+            playerFlag = "update";
+            break;
+          }
+        }
+      }
+    }
+
     // update depth
     var players = position.get().getPlayers();
     var playerCount = players.size();
@@ -86,14 +105,36 @@ public class BusinessLogic {
     if (player.getDepth() == null || player.getDepth() > playerCount) {
       player.setDepth(playerCount);
     }
-    position.get().getPlayers().add(player);
+    if (playerFlag.equals("standard")) {
+      position.get().getPlayers().add(player);
+    } else {
 
-    if (player.getDepth() >= 0 && player.getDepth() < playerCount) {
+      for (Player posPL : players) {
+        if (posPL.getId().equals(player.getId())) {
+          players.get(players.indexOf(posPL)).setDepth(player.getDepth());
+          break;
+        }
+      }
+    }
+
+    if (playerFlag.equals("standard")) {
+      if (player.getDepth() >= 0 && player.getDepth() < playerCount) {
+        for (int i = player.getDepth(); i < playerCount; i++) {
+
+          var tmp = players.get(i);
+          tmp.setDepth(i + 1);
+          players.set(i, tmp);
+        }
+      }
+    } else {
       for (int i = player.getDepth(); i < playerCount; i++) {
 
         var tmp = players.get(i);
-        tmp.setDepth(i + 1);
-        players.set(i, tmp);
+        if (tmp.getDepth().equals(player.getDepth()) && !tmp.getId().equals(player.getId())) {
+          tmp.setDepth(i + 1);
+          players.set(i, tmp);
+          break;
+        }
       }
     }
 

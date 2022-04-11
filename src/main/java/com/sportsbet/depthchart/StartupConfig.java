@@ -48,7 +48,7 @@ public class StartupConfig {
 
     CreatePlayerDTO playersUnderPlayerCandidate = alice;
 
-    List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie, bob2);
+    List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie);
 
     return args -> {
       try {
