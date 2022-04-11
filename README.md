@@ -30,3 +30,8 @@ mvn spotless:apply clean install
 To add a new sport with the correspodning positions use `createSport()` method
 
 Application has the provision to add a controller hence some of the DTOs are already being added for future reference
+
+
+### Database 
+This service is using h2 database to persist data in-memory while the app is running. \
+You can access DB UI at `http://localhost:8080/h2-ui` (default tomcat port:8080 unless otherwise updated)

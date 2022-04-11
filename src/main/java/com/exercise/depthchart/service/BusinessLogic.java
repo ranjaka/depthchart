@@ -101,7 +101,6 @@ public class BusinessLogic {
 
     // update depth
     var players = position.get().getPlayers();
-    var tempPlayers = position.get().getPlayers();
     var playerCount = players.size();
 
     if (player.getDepth() == null) {
@@ -144,12 +143,11 @@ public class BusinessLogic {
         if (!tmp.getId().equals(player.getId())) {
           tmp.setDepth(tmp.getDepth() + 1);
           players.set(i, tmp);
-          // break;
         }
       }
     }
 
-    position.get().setPlayers(tempPlayers);
+    position.get().setPlayers(players);
 
     var savedPosition = positionDao.savePosition(position.get());
     var playerData =

@@ -44,7 +44,8 @@ public class StartupConfig {
     CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").depth(0).build();
     CreatePlayerDTO charlie =
         CreatePlayerDTO.builder().name("Charlie").position("WR").depth(2).build();
-    CreatePlayerDTO bob2 = CreatePlayerDTO.builder().name("bob").position("KR").depth(0).build();
+    CreatePlayerDTO bob2 =
+        CreatePlayerDTO.builder().name("Charlie").position("WR").depth(0).build();
 
     CreatePlayerDTO playersUnderPlayerCandidate = alice;
 
