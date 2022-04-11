@@ -14,6 +14,12 @@ There is already a sample done for you..
 
 This application uses h2 database for storage and config is in `application.yml` file
 
+### Running app
+To run in terminal, please compile code using `mvn`
+then use `java -jar <depthchart-<version>.jar>`
+
+Alternatively you can run in your favorite IDE as usual using maven
+
 ### developer notes 
 This code enforces proper linting using spotless. To ensure the code does not fail to compile run spotless when 
 running `mvn install` in the following way:
