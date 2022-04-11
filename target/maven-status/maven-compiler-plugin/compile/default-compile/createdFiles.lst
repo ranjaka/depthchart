@@ -12,9 +12,10 @@ com/sportsbet/depthchart/repository/PositionRepository.class
 com/sportsbet/depthchart/model/Sport.class
 com/sportsbet/depthchart/repository/dto/PositionDTO.class
 com/sportsbet/depthchart/repository/dao/SportDao.class
-com/sportsbet/depthchart/AppConfig.class
+com/sportsbet/depthchart/service/BusinessLogic.class
 com/sportsbet/depthchart/Application.class
 com/sportsbet/depthchart/repository/dto/SportDTO.class
+com/sportsbet/depthchart/StartupConfig.class
 com/sportsbet/depthchart/repository/dto/SportDTO$SportDTOBuilder.class
 com/sportsbet/depthchart/repository/dto/PlayerDTO$PlayerDTOBuilder.class
 com/sportsbet/depthchart/model/Position.class
@@ -26,6 +27,5 @@ com/sportsbet/depthchart/repository/dto/DeletePlayerDTO.class
 com/sportsbet/depthchart/repository/dto/DeletePlayerDTO$DeletePlayerDTOBuilder.class
 com/sportsbet/depthchart/model/Player.class
 com/sportsbet/depthchart/model/Sport$SportBuilder.class
-com/sportsbet/depthchart/service/DataManagementService.class
 com/sportsbet/depthchart/exceptions/ApplicationException.class
 com/sportsbet/depthchart/repository/SportRepository.class

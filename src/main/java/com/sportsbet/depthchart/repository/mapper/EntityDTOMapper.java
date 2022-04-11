@@ -22,31 +22,11 @@ public abstract class EntityDTOMapper {
   @Mapping(target = "position", ignore = true)
   public abstract PlayerDTO playerToDTO(Player player);
 
-  //  @Mapping(target = "id", ignore = true)
-  //  @Mapping(target = "position", ignore = true)
-  //  public abstract Player playerToEntity(PlayerDTO playerDTO);
-
   public abstract Player createPlayerToEntity(CreatePlayerDTO createPlayerDTO);
 
   public abstract Player deletePlayerDTOToEntity(DeletePlayerDTO deletePlayerDTO);
 
   //  @AfterMapping
-  //  public void playerToDTOAfterMapping(Player source, @MappingTarget PlayerDTO target) {
-  //    target.setPosition(source.getPosition().getName());
-  //  }
-
-  //  @AfterMapping
-  //  public void createPlayerDTOToEntity(CreatePlayerDTO source, @MappingTarget Player target) {
-  //    Position position = Position.builder().name(source.getPosition()).build();
-  //    target.setPosition(position);
-  //  }
-
-  //  @AfterMapping
-  //  public void deletePlayerDTOToEntityAfterMapping(
-  //      DeletePlayerDTO source, @MappingTarget Player target) {
-  //    Position position = Position.builder().name(source.getPosition()).build();
-  //    target.setPosition(position);
-  //  }
 
   // position
 
