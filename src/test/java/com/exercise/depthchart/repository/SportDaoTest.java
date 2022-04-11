@@ -1,7 +1,6 @@
 package com.exercise.depthchart.repository;
 
 import com.exercise.depthchart.model.Position;
-import com.exercise.depthchart.repository.dao.PlayerDao;
 import com.exercise.depthchart.repository.dao.SportDao;
 import com.exercise.depthchart.repository.dto.SportDTO;
 import com.exercise.depthchart.repository.mapper.EntityDTOMapper;
@@ -20,8 +19,6 @@ import org.springframework.test.annotation.DirtiesContext;
 @DirtiesContext
 @SpringBootTest(value = "spring.main.lazy-initialization=true")
 class SportDaoTest {
-
-  @Autowired PlayerDao playerDao;
 
   @Autowired SportDao sportDao;
 

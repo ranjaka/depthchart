@@ -1,6 +1,7 @@
 .idea
 
-./target
+# binaries
+/target/
 
 # Package Files #
 *.war

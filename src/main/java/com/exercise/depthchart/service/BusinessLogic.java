@@ -9,6 +9,7 @@ import com.exercise.depthchart.model.Sport;
 import com.exercise.depthchart.repository.dao.PlayerDao;
 import com.exercise.depthchart.repository.dao.PositionDao;
 import com.exercise.depthchart.repository.dao.SportDao;
+import com.exercise.depthchart.repository.dto.PlayerDTO;
 import com.exercise.depthchart.repository.dto.PositionDTO;
 import com.exercise.depthchart.repository.dto.SportDTO;
 import com.exercise.depthchart.repository.mapper.EntityDTOMapper;
@@ -64,7 +65,7 @@ public class BusinessLogic {
    * @param positionDepth
    * @return
    */
-  public PositionDTO addPlayerToDepthChart(
+  public PlayerDTO addPlayerToDepthChart(
       String playerName, String playerPosition, Integer positionDepth) {
 
     String playerFlag = "standard";
@@ -88,7 +89,7 @@ public class BusinessLogic {
       for (Player posPl : position.get().getPlayers()) {
         if (posPl.getName().equals(pl.getName())) {
           if (posPl.getDepth().equals(positionDepth)) {
-            throw new BadRequestException("duplicate");
+            throw new BadRequestException("Duplicate request");
           } else {
             player.setId(pl.getId());
             playerFlag = "update";
@@ -100,18 +101,26 @@ public class BusinessLogic {
 
     // update depth
     var players = position.get().getPlayers();
+    var tempPlayers = position.get().getPlayers();
     var playerCount = players.size();
 
-    if (player.getDepth() == null || player.getDepth() > playerCount) {
+    if (player.getDepth() == null) {
       player.setDepth(playerCount);
     }
+
+    if (player.getDepth() > playerCount) {
+      player.setDepth(playerCount - 1);
+    }
     if (playerFlag.equals("standard")) {
+
       position.get().getPlayers().add(player);
+
     } else {
 
       for (Player posPL : players) {
         if (posPL.getId().equals(player.getId())) {
           players.get(players.indexOf(posPL)).setDepth(player.getDepth());
+
           break;
         }
       }
@@ -119,30 +128,38 @@ public class BusinessLogic {
 
     if (playerFlag.equals("standard")) {
       if (player.getDepth() >= 0 && player.getDepth() < playerCount) {
-        for (int i = player.getDepth(); i < playerCount; i++) {
+        for (int i = 0; i < playerCount; i++) {
 
           var tmp = players.get(i);
-          tmp.setDepth(i + 1);
-          players.set(i, tmp);
+          if (!tmp.getName().equals(player.getName())) {
+            tmp.setDepth(i + 1);
+            players.set(i, tmp);
+          }
         }
       }
     } else {
-      for (int i = player.getDepth(); i < playerCount; i++) {
+      for (int i = 0; i < playerCount; i++) {
 
         var tmp = players.get(i);
-        if (tmp.getDepth().equals(player.getDepth()) && !tmp.getId().equals(player.getId())) {
-          tmp.setDepth(i + 1);
+        if (!tmp.getId().equals(player.getId())) {
+          tmp.setDepth(tmp.getDepth() + 1);
           players.set(i, tmp);
-          break;
+          // break;
         }
       }
     }
 
-    position.get().setPlayers(players);
+    position.get().setPlayers(tempPlayers);
 
     var savedPosition = positionDao.savePosition(position.get());
+    var playerData =
+        savedPosition.getPlayers().stream().filter(x -> x.getName().equals(playerName)).findFirst();
 
-    return entityDTOMapper.positionToDTO(savedPosition);
+    if (playerData.isEmpty()) {
+      throw new ApplicationException("Error creating new player");
+    }
+
+    return entityDTOMapper.playerToDTO(playerData.get());
   }
 
   /**
@@ -156,7 +173,7 @@ public class BusinessLogic {
 
     var positionData = positionDao.getPositionByName(positionName);
     if (positionData.isEmpty()) {
-      throw new ResourceNotFoundException(
+      throw new BadRequestException(
           String.format("Position data with name [%s] does not exist", positionName));
     }
 
@@ -188,10 +205,13 @@ public class BusinessLogic {
     }
 
     if (playerToRemove.getDepth() >= 0 && playerToRemove.getDepth() < playerCount) {
-      for (int i = playerToRemove.getDepth(); i < playerCount; i++) {
+      for (int i = 0; i < playerCount; i++) {
 
         var tmp = players.get(i);
-        tmp.setDepth(i + 1);
+        if (tmp.getDepth() != 0) {
+          tmp.setDepth(tmp.getDepth() - 1);
+        }
+
         players.set(i, tmp);
       }
     }
@@ -203,12 +223,20 @@ public class BusinessLogic {
     if (result.isEmpty()) {
       throw new ApplicationException("Error while retrieving position data");
     }
+    Collections.sort(savedPosition.getPlayers(), Comparator.comparingInt(Player::getDepth));
 
-    return entityDTOMapper.positionToDTO(result.get());
+    return entityDTOMapper.positionToDTO(savedPosition);
   }
 
   public List<PositionDTO> getFullDepthChart() {
     var positionList = positionDao.getAllPositionData();
+
+    for (Position p : positionList) {
+      int idx = positionList.indexOf(p);
+      Collections.sort(p.getPlayers(), Comparator.comparingInt(Player::getDepth));
+      positionList.set(idx, p);
+    }
+
     List<PositionDTO> depthChart = new ArrayList<>();
 
     for (Position p : positionList) {
@@ -243,7 +271,7 @@ public class BusinessLogic {
             .filter(x -> x.getDepth() > filterPlayer.get().getDepth())
             .collect(Collectors.toList());
 
-    Collections.sort(result, Comparator.comparing(Player::getDepth));
+    Collections.sort(result, Comparator.comparingInt(Player::getDepth));
 
     return result;
   }

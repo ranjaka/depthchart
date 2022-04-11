@@ -44,11 +44,11 @@ public class StartupConfig {
     CreatePlayerDTO alice = CreatePlayerDTO.builder().name("Alice").position("WR").depth(0).build();
     CreatePlayerDTO charlie =
         CreatePlayerDTO.builder().name("Charlie").position("WR").depth(2).build();
-    CreatePlayerDTO bob2 = CreatePlayerDTO.builder().name("Bob").position("KR").build();
+    CreatePlayerDTO bob2 = CreatePlayerDTO.builder().name("bob").position("KR").depth(0).build();
 
     CreatePlayerDTO playersUnderPlayerCandidate = alice;
 
-    List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie);
+    List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie, bob2);
 
     return args -> {
       try {
@@ -75,7 +75,8 @@ public class StartupConfig {
                 playersUnderPlayerCandidate.getName(),
                 objectMapper.writeValueAsString(playerUnderPlayer)));
 
-        businessLogic.removePlayerFromDepthChart(bob.getName(), bob.getPosition());
+        //                businessLogic.removePlayerFromDepthChart(alice.getName(),
+        // alice.getPosition());
 
       } catch (Exception e) {
         System.err.println("Application error: " + e);
