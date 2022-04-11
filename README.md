@@ -1,6 +1,6 @@
 # Depth Chart Exercise
 
-### developer: Ranjaka De Mel
+### Developer: Ranjaka De Mel
 
 ### Overview:
 This app computes 4 mains scenarios of the depth chart as per the requirements.
@@ -20,7 +20,7 @@ then use `java -jar <depthchart-<version>.jar>`
 
 Alternatively you can run in your favorite IDE as usual using maven
 
-### developer notes 
+### Developer notes 
 This code enforces proper linting using spotless. To ensure the code does not fail to compile run spotless when 
 running `mvn install` in the following way:
 ```bash

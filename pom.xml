@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.sportsbet</groupId>
+    <groupId>org.exercise</groupId>
     <artifactId>depthchart</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -13,7 +13,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <org.springframework.boot>2.5.8</org.springframework.boot>
-        <main.class>com.sportsbet.depthchart.Application</main.class>
+        <main.class>com.exercise.depthchart.Application</main.class>
         <org.projectlombok>1.18.20</org.projectlombok>
         <com.h2database>2.0.206</com.h2database>
         <com.diffplug.spotless>2.21.0</com.diffplug.spotless>

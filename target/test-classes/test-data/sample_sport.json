@@ -1,0 +1,27 @@
+{
+  "name": "sp1",
+  "positions": [
+    {
+      "name": "p1",
+      "players": [
+        {
+          "id": 1,
+          "name": "pl1"
+        },
+        {
+          "id": 2,
+          "name": "pl2"
+        }
+      ]
+    },
+    {
+      "name": "p2",
+      "players": [
+        {
+          "id": 3,
+          "name": "pl3"
+        }
+      ]
+    }
+  ]
+}
