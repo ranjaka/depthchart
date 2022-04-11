@@ -14,6 +14,13 @@ public class StartupConfig {
 
   ObjectMapper objectMapper = new ObjectMapper();
 
+  /**
+   * Startup config to test you logic for the timebeing until a controller or other user input means
+   * are added to this app
+   *
+   * @param businessLogic
+   * @return
+   */
   @Bean
   public CommandLineRunner setDbModelData(BusinessLogic businessLogic) {
 
@@ -39,24 +46,38 @@ public class StartupConfig {
         CreatePlayerDTO.builder().name("Charlie").position("WR").depth(2).build();
     CreatePlayerDTO bob2 = CreatePlayerDTO.builder().name("Bob").position("KR").build();
 
+    CreatePlayerDTO playersUnderPlayerCandidate = alice;
+
     List<CreatePlayerDTO> listOfPlayers = List.of(bob, alice, charlie, bob2);
 
     return args -> {
-      listOfSports.forEach(businessLogic::createSport);
-      listOfPlayers.forEach(
-          createPlayerDTO -> {
-            businessLogic.addPlayerToDepthChart(
-                createPlayerDTO.getName(),
-                createPlayerDTO.getPosition(),
-                createPlayerDTO.getDepth());
-          });
+      try {
 
-      var depthChart = businessLogic.getFullDepthChart();
-      //      businessLogic.removePlayerFromDepthChart(bob.getName(), bob.getPosition());
-      var playerUnderPlayer =
-          businessLogic.getPlayersUnderPlayerInDepthChart(alice.getName(), alice.getPosition());
+        listOfSports.forEach(businessLogic::createSport);
+        listOfPlayers.forEach(
+            createPlayerDTO -> {
+              businessLogic.addPlayerToDepthChart(
+                  createPlayerDTO.getName(),
+                  createPlayerDTO.getPosition(),
+                  createPlayerDTO.getDepth());
+            });
 
-      System.out.println("PUP: " + objectMapper.writeValueAsString(playerUnderPlayer));
+        var depthChart = businessLogic.getFullDepthChart();
+        var playerUnderPlayer =
+            businessLogic.getPlayersUnderPlayerInDepthChart(
+                playersUnderPlayerCandidate.getName(), playersUnderPlayerCandidate.getPosition());
+
+        System.out.println("Depth Chart: " + objectMapper.writeValueAsString(depthChart));
+
+        System.out.println(
+            String.format(
+                "Players under player [%s]: %s",
+                playersUnderPlayerCandidate.getName(),
+                objectMapper.writeValueAsString(playerUnderPlayer)));
+
+      } catch (Exception e) {
+        System.err.println("Application error: " + e);
+      }
     };
   }
 }

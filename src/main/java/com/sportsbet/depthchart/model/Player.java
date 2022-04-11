@@ -27,10 +27,5 @@ public class Player {
 
   @NotNull private String name;
 
-  //  @ManyToOne
-  //  @JoinColumn(name = "position_name")
-  //  @JsonBackReference
-  //  private Position position;
-
   private Integer depth;
 }
